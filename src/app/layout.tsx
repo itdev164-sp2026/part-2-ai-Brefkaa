@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Inter, Geist } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/header";
-import "./globals.css";
+import { AppSidebar } from "@/components/app-sidebar";
+import { ModeToggle } from "@/components/mode-toggle";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,8 +34,23 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+          <SidebarProvider>
+            <div className="flex min-h-screen bg-background text-foreground">
+              <AppSidebar />
+              <SidebarInset className="flex min-h-screen flex-1 flex-col">
+                <div className="border-b border-border bg-card/80 px-4 py-4 backdrop-blur-sm">
+                  <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-3">
+                      <SidebarTrigger className="rounded-md border border-border bg-background p-2 text-muted-foreground shadow-sm transition hover:bg-muted hover:text-foreground" />
+                      <Breadcrumbs />
+                    </div>
+                    <ModeToggle />
+                  </div>
+                </div>
+                <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
+              </SidebarInset>
+            </div>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
