@@ -35,7 +35,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SidebarProvider>
-            <div className="flex min-h-screen bg-background text-foreground">
+            <div className="flex min-h-screen bg-background text-foreground w-full">
               <AppSidebar />
               <SidebarInset className="flex min-h-screen flex-1 flex-col">
                 <div className="border-b border-border bg-card/80 px-4 py-4 backdrop-blur-sm">
