@@ -86,3 +86,36 @@ It organized the page.tsx files for the different screens into folders that core
 
 ### Reflection
 The agent didn't break any features that were working in activity 1, so that's great. This is probably due to the fact we propted it with an important message to maintain that code. Sometimes you need multiple prompts to get the agent to fix errors it left. My layout.tsx wasn't importing the css file so I needed to tell the agent to fix it.
+
+## Activity 3: Server-Side Data with Supabase
+
+### Prompt 1
+**What I asked:**
+Using the Supabase client at src/lib/supabase.ts, create a new Server Component
+at src/app/projects/page.tsx that:
+
+1. Fetches all records from the "projects" table in Supabase
+2. Displays them in a professional layout using shadcn/ui Card components
+   (run `npx shadcn@latest add card` if needed)
+3. Each card should show the project title, description, and a status badge
+4. The status badge should be color-coded:
+   - "active" = green
+   - "completed" = blue
+   - "archived" = gray
+
+Use @workspace context to match the styling of our existing Dashboard.
+This must be a React Server Component (async function, no "use client").
+Do NOT use useEffect or useState for data fetching.
+
+**What happened:**
+It successfully created the compnent for the projects page, got everything from supabase, and kept it server side. It even added a badge component to use.
+
+### Prompt 2
+**What I asked:**
+Can you edit the layout.tsx to layout all the pages and make them fill up the whole screen regardless of the amount of content on the page. Give me options.
+
+**What happened:**
+I selected a choice to add w-full class to the outer div and I tested it and every page now fills up the screen.
+
+### Reflection
+I added the breadcrumbs last week, but this week I found that options are very useful when finding fixes or changes to specific things.

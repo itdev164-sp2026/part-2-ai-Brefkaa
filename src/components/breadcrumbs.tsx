@@ -8,13 +8,13 @@ export function Breadcrumbs() {
     const getBreadcrumbs = () => {
         switch (pathname) {
             case "/":
-                return { title: "Dashboard", crumbs: ["Home", " Overview"] }
+                return { title: "Dashboard", crumbs: ["Home", "Overview"] }
             case "/projects":
-                return { title: "Projects", crumbs: ["Home", " Projects"] }
+                return { title: "Projects", crumbs: ["Home", "Projects"] }
             case "/settings":
-                return { title: "Settings", crumbs: ["Home", " Settings"] }
+                return { title: "Settings", crumbs: ["Home", "Settings"] }
             default:
-                return { title: "Dashboard", crumbs: ["Home", " Overview"] }
+                return { title: "Dashboard", crumbs: ["Home", "Overview"] }
         }
     }
 
