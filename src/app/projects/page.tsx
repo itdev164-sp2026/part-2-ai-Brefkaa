@@ -1,12 +1,58 @@
-export default function ProjectsPage() {
+import { supabase } from "@/lib/supabase";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+interface Project {
+    id: string;
+    title: string;
+    description: string;
+    status: "active" | "completed" | "archived";
+}
+
+export default async function ProjectsPage() {
+    const { data: projects } = await supabase.from("projects").select("*");
+
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case "active":
+                return "bg-green-500 text-white";
+            case "completed":
+                return "bg-blue-500 text-white";
+            case "archived":
+                return "bg-gray-500 text-white";
+            default:
+                return "bg-gray-500 text-white";
+        }
+    };
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-[50vh] text-center">
-            <h1 className="text-4xl font-bold text-foreground mb-4">Projects</h1>
-            <p className="text-lg text-muted-foreground mb-8">
-                This page is under construction. Check back soon for updates on my latest projects!
-            </p>
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center">
-                <span className="text-2xl">🚧</span>
+        <div className="w-full max-w-none px-0">
+            <div className="space-y-8">
+                <section className="space-y-2">
+                    <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
+                    <p className="text-muted-foreground">
+                        A showcase of my development projects and achievements.
+                    </p>
+                </section>
+
+                <section className="space-y-4">
+                    <h2 className="text-2xl font-semibold">All Projects</h2>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {projects?.map((project: Project) => (
+                            <Card key={project.id} className="shadow-sm transition hover:shadow-md">
+                                <CardHeader>
+                                    <div className="grid grid-cols-[1fr_auto] items-start gap-2">
+                                        <CardTitle className="text-lg">{project.title}</CardTitle>
+                                        <Badge className={getStatusColor(project.status)}>
+                                            {project.status}
+                                        </Badge>
+                                    </div>
+                                    <CardDescription>{project.description}</CardDescription>
+                                </CardHeader>
+                            </Card>
+                        ))}
+                    </div>
+                </section>
             </div>
         </div>
     );
