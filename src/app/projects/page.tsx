@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface Project {
     id: string;
@@ -28,11 +30,16 @@ export default async function ProjectsPage() {
     return (
         <div className="w-full max-w-none px-0">
             <div className="space-y-8">
-                <section className="space-y-2">
-                    <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-                    <p className="text-muted-foreground">
-                        A showcase of my development projects and achievements.
-                    </p>
+                <section className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div className="space-y-2">
+                        <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
+                        <p className="text-muted-foreground">
+                            A showcase of my development projects and achievements.
+                        </p>
+                    </div>
+                    <Link href="/projects/new">
+                        <Button variant="secondary">New Project</Button>
+                    </Link>
                 </section>
 
                 <section className="space-y-4">
