@@ -119,3 +119,52 @@ I selected a choice to add w-full class to the outer div and I tested it and eve
 
 ### Reflection
 I added the breadcrumbs last week, but this week I found that options are very useful when finding fixes or changes to specific things.
+
+## Activity 4: AI-Driven Forms & Validation
+
+### Prompt 1
+**What I asked:**
+Create a Zod validation schema in a new file src/lib/schemas.ts for a "Project"
+with the following fields:
+
+- title: string, minimum 3 characters, with a custom error message
+  "Title must be at least 3 characters"
+- description: string, minimum 10 characters, with a custom error message
+  "Description must be at least 10 characters"
+- status: enum with values "active", "completed", "archived"
+
+Export the schema and also export the inferred TypeScript type using z.infer.
+**What happened:**
+It added the Zod Schema exactly how it should've. It added it in the right place and I reviewed it and it looked good.
+### Prompt 2
+**What I asked:**
+Using the Zod schema from src/lib/schemas.ts, do the following:
+
+1. Create a form component at src/components/project-form.tsx that:
+   - Is a Client Component ("use client") because it uses react-hook-form hooks
+   - Uses react-hook-form with the zodResolver from @hookform/resolvers for validation
+   - Uses shadcn/ui Field, FieldLabel, and FieldError for field layout
+   - Uses shadcn/ui Input for title, Textarea for description, and Select for status
+   - Shows inline error messages under each field when validation fails
+   - Has a "Create Project" submit button
+   - Shows a sonner toast notification on successful submission
+
+2. Create a Server Action at src/app/actions.ts that:
+   - Has "use server" at the top of the file
+   - Accepts the validated form data
+   - Validates it again with the Zod schema (server-side validation)
+   - Inserts the validated data into the Supabase "projects" table
+   - Returns a success or error response
+
+3. Create a new page at src/app/projects/new/page.tsx that renders
+   the project form within the dashboard layout.
+
+4. Add a "New Project" button to the existing projects page
+   (src/app/projects/page.tsx) that links to /projects/new.
+
+Use @workspace to match the existing project styling.
+
+**What happened:**
+It added everything that I wanted from it. the code looks good and I tested it and everything worked. It didn't use deprecated functions but one error popped up on the path for returning an error when the returning a failed parse through the schema. That was an easy fix, I pasted the line with the error into the Agent and it fixed it. Other than that, it incorperated the verifications all properly.
+### Reflection
+These prompts were really good, but sometimes the agent doesn't use the correct paths or functions. Some names might have changed or functions could have been depricated and then the AI might mess up.
