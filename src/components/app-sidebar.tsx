@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { FolderOpen, Home, Settings } from "lucide-react"
+import { FolderOpen, Home, Settings, LogOut } from "lucide-react"
+import { signOut } from "@/app/actions"
 import {
     Sidebar,
     SidebarContent,
@@ -13,9 +14,18 @@ import {
     SidebarSeparator,
     useSidebar,
 } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
 
-export function AppSidebar() {
+interface AppSidebarProps {
+    user: any // Replace with proper User type from Supabase
+}
+
+export function AppSidebar({ user }: AppSidebarProps) {
     const { isMobile, setOpenMobile, setOpen } = useSidebar()
+
+    const handleSignOut = async () => {
+        await signOut()
+    }
 
     return (
         <Sidebar className="border-r border-border bg-card/80 text-foreground shadow-sm">
@@ -61,8 +71,21 @@ export function AppSidebar() {
 
             <SidebarSeparator />
 
-            <SidebarFooter className="px-4 py-4 text-sm text-muted-foreground">
-                <p>Collapsible sidebar designed for profile and workflow content.</p>
+            <SidebarFooter className="px-4 py-4">
+                {user && (
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleSignOut}
+                        className="w-full justify-start"
+                    >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Sign Out
+                    </Button>
+                )}
+                <p className="text-sm text-muted-foreground">
+                    Collapsible sidebar designed for profile and workflow content.
+                </p>
             </SidebarFooter>
         </Sidebar>
     )
