@@ -5,6 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { createClient } from "@/lib/supabase/server";
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 
@@ -20,11 +21,14 @@ export const metadata: Metadata = {
   description: "Web development student portfolio page built with Next.js and Tailwind CSS",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
   return (
     <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body className={`${inter.variable} font-sans antialiased`}>
@@ -36,7 +40,7 @@ export default function RootLayout({
         >
           <SidebarProvider>
             <div className="flex min-h-screen bg-background text-foreground w-full">
-              <AppSidebar />
+              <AppSidebar user={user} />
               <SidebarInset className="flex min-h-screen flex-1 flex-col">
                 <div className="border-b border-border bg-card/80 px-4 py-4 backdrop-blur-sm">
                   <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

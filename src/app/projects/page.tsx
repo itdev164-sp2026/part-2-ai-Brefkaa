@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ interface Project {
 }
 
 export default async function ProjectsPage() {
+    const supabase = await createClient()
     const { data: projects } = await supabase.from("projects").select("*");
 
     const getStatusColor = (status: string) => {
