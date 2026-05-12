@@ -223,3 +223,50 @@ This got the Agent to fix the depricated function and use a different function t
 
 ### Reflection
 I wasn't getting to the login page because it was giving me a 404 page error when clicking the projects tab. I figured that was because of the folder name, so I changed it and then my whole app seemed to be working as expected.
+
+## Activity 6: Deployment, Webhooks, & AI-Testing
+
+### Prompt 1
+**What I asked:**
+I have a Next.js app with Supabase Auth. Using @workspace context to
+understand the app structure, write an End-to-End (E2E) test file at
+tests/auth.spec.ts using Playwright.
+
+The tests should verify:
+
+1. LOGIN PAGE VISIBLE: Navigate to /login and confirm the login form
+   is visible (check for email input, password input, and submit button).
+
+2. REDIRECT AFTER LOGIN: After a successful login with valid credentials,
+   the user is redirected to the dashboard or projects page.
+
+3. SIDEBAR NAVIGATION: After login, verify that the sidebar navigation
+   links are visible: "Overview", "Projects", and "Settings".
+
+Requirements:
+- Use role-based locators (getByRole, getByLabel, getByText) instead of
+  CSS selectors or test IDs. This makes tests more accessible and resilient
+  to UI changes.
+- Add clear test descriptions that explain what each test verifies.
+- Handle the async nature of navigation and page loads with proper
+  Playwright waiting strategies.
+- Read test credentials from process.env.TEST_USER_EMAIL and
+  process.env.TEST_USER_PASSWORD. Do not hardcode credentials. If those
+  variables are not set, the credentialed tests should skip with a clear
+  message rather than fail.
+
+**What happened:**
+My auth.specs.ts was created properly, it just had some errors because it was getting env variables that I didn't have yet, so I manually added those. There were still errors on the variables that were occuring still.
+
+### Prompt 2
+**What I asked:**
+I added the env variables so why are the variables still erroring in the auth.spec.ts?
+
+**What happened:**
+it added explanation marks to the end of every instance of the variables meaning they are not null.
+
+### Reflection
+The Activity was actually super fun. I like that it was fairly simple to deploy. The Agent cooperated pretty well with making the test, and it's very helpful for verifying everything.
+
+### Course Reflection
+I felt more comfortable as the class went on with writing to the AI. I always found that when I had the AI write everything, it was hard for me to recognize the errors it made, so I found myself having to ask the AI to figure out where it went wrong and it has to come up with how to fix it because I can't understand why it's broken. Although, the prompts that were provided in the lesson were very great, and That helped me learn to make prompts super specific when trying to get the AI to write a lot at a time. If it didn't always get it write the first time, then after follow up prompts I was always able to get stuff working with the AI so it felt like a very successful half of a semester for me.
